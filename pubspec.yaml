@@ -14,7 +14,7 @@ dependencies:
     git:
       url: git://github.com/Red-Ovenbirds/taiper.git
       ref: development
-    
+  provider: ^3.2.0
 
 dev_dependencies:
   flutter_test:

@@ -21,7 +21,11 @@ dependencies:
     sdk: flutter
   taiper_editor:
     path: ../
-
+  taiper:
+    git:
+      url: git://github.com/Red-Ovenbirds/taiper.git
+      ref: development
+  
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
