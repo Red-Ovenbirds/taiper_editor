@@ -13,16 +13,6 @@ class TaiperEditorContainer extends StatefulWidget {
 }
 
 class _TaiperEditorContainerState extends State<TaiperEditorContainer> {
-  TaiperEditingController controller;
-  @override
-  void initState() {
-    super.initState();
-    controller = widget.controller;
-    if (controller == null) {
-      controller = TaiperEditingController([]);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
