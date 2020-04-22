@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:taiper/taiper.dart';
 
@@ -12,7 +14,6 @@ class TaiperEditingController with ChangeNotifier {
 
   updateEntry(int index, ClayblockData data) {
     this.data[index] = data;
-    notifyListeners();
   }
 
   removeEntry(int index) {
@@ -22,6 +23,9 @@ class TaiperEditingController with ChangeNotifier {
   }
 
   moveEntry(int oldIndex, int newIndex) {
+    oldIndex = max(oldIndex, 0);
+    newIndex = min(newIndex, this.data.length-1);
+
     final entry = this.data[oldIndex];
     final key = this.keys[oldIndex];
 
@@ -36,12 +40,19 @@ class TaiperEditingController with ChangeNotifier {
 
   addBodyTextMold() {
     this.data.add(ClayblockData(type: "text/body", value: "", props: null));
-    this.keys.add( new GlobalKey());
+    this.keys.add(new GlobalKey());
     notifyListeners();
   }
+
   addTitleTextMold() {
     this.data.add(ClayblockData(type: "text/title", value: "", props: null));
-    this.keys.add( new GlobalKey());
+    this.keys.add(new GlobalKey());
+    notifyListeners();
+  }
+
+  addImageMold() {
+    this.data.add(ClayblockData(type: "image/local", value: "", props: null));
+    this.keys.add(new GlobalKey());
     notifyListeners();
   }
 }
