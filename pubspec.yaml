@@ -15,6 +15,9 @@ dependencies:
       url: git://github.com/Red-Ovenbirds/taiper.git
       ref: development
   provider: ^3.2.0
+  image_picker: ^0.6.5+2
+  photo_view: ^0.9.1
+  cached_network_image: ^2.0.0-rc
 
 dev_dependencies:
   flutter_test:
