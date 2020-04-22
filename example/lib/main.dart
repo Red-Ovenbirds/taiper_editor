@@ -22,62 +22,57 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => MyHomePageState();
-  
 }
 
 class MyHomePageState extends State<MyHomePage> {
   var controller = TaiperEditingController(
       [ClayblockData(value: "test", type: "text/title", props: null)]);
-
+  var showingSpeedDial = false;
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(title: Text("Example")),
       floatingActionButton: SpeedDial(
-          // both default to 16
-          marginRight: 18,
-          marginBottom: 20,
-          animatedIcon: AnimatedIcons.menu_close,
-          animatedIconTheme: IconThemeData(size: 22.0),
-          // this is ignored if animatedIcon is non null
-          // child: Icon(Icons.add),
-          visible: true,
-          // If true user is forced to close dial manually 
-          // by tapping main button and overlay is not rendered.
-          closeManually: false,
-          curve: Curves.bounceIn,
-          overlayOpacity: 0.5,
-          onOpen: () => print('OPENING DIAL'),
-          onClose: () => print('DIAL CLOSED'),
-          tooltip: 'Speed Dial',
-          heroTag: 'speed-dial-hero-tag',
-          elevation: 8.0,
-          shape: CircleBorder(),
-          children: [
-            SpeedDialChild(
-              child: Icon(Icons.image, color: theme.accentColor),
-              backgroundColor: Colors.white,
-              label: 'Imagem',
-              labelStyle: TextStyle(fontSize: 18.0),
-              onTap: () => controller.addImageMold(),
-            ),
-            SpeedDialChild(
-              child: Icon(Icons.title, color: theme.accentColor, size: 16),
-              backgroundColor: Colors.white,
-              label: 'Parágrafo',
-              labelStyle: TextStyle(fontSize: 18.0),
-              onTap: () => controller.addBodyTextMold(),
-            ),
-            SpeedDialChild(
+        // this is ignored if animatedIcon is non null
+        // child: Icon(Icons.add),
+        visible: true,
+        // If true user is forced to close dial manually
+        // by tapping main button and overlay is not rendered.
+        closeManually: false,
+        curve: Curves.bounceIn,
+        overlayColor: Colors.black,
+        overlayOpacity: 0.25,
+        onOpen: () => setState(() => showingSpeedDial = true),
+        onClose: () => setState(() => showingSpeedDial = false),
+        tooltip: 'Speed Dial',
+        heroTag: 'speed-dial-hero-tag',
+        elevation: 8.0,
+        shape: CircleBorder(),
+        child: showingSpeedDial ? Icon(Icons.close) : Icon(Icons.add),
+        children: [
+          SpeedDialChild(
+            child: Icon(Icons.image, color: theme.accentColor),
+            backgroundColor: Colors.white,
+            label: 'Imagem',
+            labelStyle: Theme.of(context).textTheme.body1,
+            onTap: () => controller.addImageMold(),
+          ),
+          SpeedDialChild(
+            child: Icon(Icons.title, color: theme.accentColor, size: 18),
+            backgroundColor: Colors.white,
+            label: 'Parágrafo',
+            labelStyle: Theme.of(context).textTheme.body1,
+            onTap: () => controller.addBodyTextMold(),
+          ),
+          SpeedDialChild(
               child: Icon(Icons.title, color: theme.accentColor),
               backgroundColor: Colors.white,
               label: 'Título',
-              labelStyle: TextStyle(fontSize: 18.0),
-              onTap: () => controller.addTitleTextMold()
-            )
-          ],
-        ),
+              labelStyle: Theme.of(context).textTheme.title,
+              onTap: () => controller.addTitleTextMold())
+        ],
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
