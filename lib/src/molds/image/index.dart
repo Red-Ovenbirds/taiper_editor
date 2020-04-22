@@ -32,28 +32,44 @@ class ImageMoldState extends State<ImageMold> with ClayblockMoldMixin {
     return Padding(
       padding: const EdgeInsets.only(top: 16.0, bottom: 4),
       child: Column(mainAxisSize: MainAxisSize.min, children: [
-        buildImage(),
         Row(
           children: <Widget>[
             Expanded(
-              child: RaisedButton(
-                  color: Theme.of(context).buttonColor,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[Icon(Icons.photo_library)],
-                  ),
-                  onPressed: () => didTapImageButton(context, ImageSource.gallery)),
-            ),
-            SizedBox(width: 8),
-            Expanded(
-              child: RaisedButton(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[Icon(Icons.camera_alt)],
-                  ),
-                  onPressed: () => didTapImageButton(context, ImageSource.camera)),
-            ),
+                child: Card(
+                    color: Colors.black,
+                    clipBehavior: Clip.antiAlias,
+                    child: buildImage())),
           ],
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 4.0),
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                child: FlatButton(
+                  color: Theme.of(context).accentColor,
+                  colorBrightness: Theme.of(context).accentColorBrightness,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[Icon(Icons.photo_library)],
+                    ),
+                    onPressed: () =>
+                        didTapImageButton(context, ImageSource.gallery)),
+              ),
+              SizedBox(width: 8),
+              Expanded(
+                child: FlatButton(
+                    color: Theme.of(context).accentColor,
+                    colorBrightness: Theme.of(context).accentColorBrightness,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[Icon(Icons.camera_alt)],
+                    ),
+                    onPressed: () =>
+                        didTapImageButton(context, ImageSource.camera)),
+              ),
+            ],
+          ),
         )
       ]),
     );
@@ -64,7 +80,7 @@ class ImageMoldState extends State<ImageMold> with ClayblockMoldMixin {
       return Container(width: 0, height: 0);
     }
 
-    if (src.contains("http://")) {
+    if (src.contains("http")) {
       return imageContainer(
           context, WebImage(src), CachedNetworkImageProvider(src));
     } else {
