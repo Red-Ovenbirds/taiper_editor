@@ -4,9 +4,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:photo_view/photo_view.dart';
-import 'package:taiper_editor/src/molds/image/local_image.dart';
+import 'package:taiper_editor/src/molds/image/inline_image.dart';
 import 'package:taiper_editor/src/molds/image/photo_view.dart';
-import 'package:taiper_editor/src/molds/image/web_image.dart';
 import 'package:taiper_editor/src/molds/index.dart';
 
 class ImageMold extends StatefulWidget {
@@ -47,8 +46,8 @@ class ImageMoldState extends State<ImageMold> with ClayblockMoldMixin {
             children: <Widget>[
               Expanded(
                 child: FlatButton(
-                  color: Theme.of(context).accentColor,
-                  colorBrightness: Theme.of(context).accentColorBrightness,
+                    color: Theme.of(context).accentColor,
+                    colorBrightness: Theme.of(context).accentColorBrightness,
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[Icon(Icons.photo_library)],
@@ -80,27 +79,38 @@ class ImageMoldState extends State<ImageMold> with ClayblockMoldMixin {
       return Container(width: 0, height: 0);
     }
 
+    final tag = getKey(context).toString();
+    ImageType type = ImageType.local;
+    ImageProvider imageProvider = FileImage(File.fromUri(Uri.file(src)));
     if (src.contains("http")) {
-      return imageContainer(
-          context, WebImage(src), CachedNetworkImageProvider(src));
-    } else {
-      return imageContainer(
-          context, LocalImage(src), FileImage(File.fromUri(Uri.file(src))));
+      imageProvider = CachedNetworkImageProvider(src);
+      type = ImageType.web;
     }
+
+    return imageContainer(imageProvider, tag, type);
   }
 
-  imageContainer(context, image, imageProvider) => Container(
+  imageContainer(ImageProvider imageProvider, String tag, ImageType type) =>
+      Container(
         child: GestureDetector(
-          child: image,
+          child: InlineImage(
+            src,
+            tag: tag,
+            type: type,
+          ),
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(
-                builder: (context) => HeroPhotoViewWrapper(
+              PageRouteBuilder(
+                pageBuilder: (c, a1, a2) => HeroPhotoViewWrapper(
                   imageProvider: imageProvider,
+                  heroTag: tag,
                   minScale: PhotoViewComputedScale.contained * 1,
                   maxScale: PhotoViewComputedScale.covered * 2.0,
                 ),
+                transitionsBuilder: (c, anim, a2, child) =>
+                    FadeTransition(opacity: anim, child: child),
+                transitionDuration: Duration(milliseconds: 250),
               ),
             );
           },

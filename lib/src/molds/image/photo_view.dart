@@ -7,9 +7,11 @@ class HeroPhotoViewWrapper extends StatelessWidget {
       this.loadingChild,
       this.backgroundDecoration,
       this.minScale,
-      this.maxScale});
+      this.maxScale,
+      this.heroTag = "photoViewByTaiper"});
 
   final ImageProvider imageProvider;
+  final String heroTag;
   final Widget loadingChild;
   final Decoration backgroundDecoration;
   final dynamic minScale;
@@ -34,7 +36,7 @@ class HeroPhotoViewWrapper extends StatelessWidget {
               minScale: minScale,
               maxScale: maxScale,
               heroAttributes:
-                  const PhotoViewHeroAttributes(tag: "photoViewByTaiper"),
+                  PhotoViewHeroAttributes(tag: heroTag),
             ),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 30, horizontal: 10),

@@ -58,4 +58,10 @@ mixin ClayblockMoldMixin {
     return Provider.of<ClayblockData>(context, listen: false);
   }
 
+  GlobalKey getKey(BuildContext context) {
+    final editingController = Provider.of<TaiperEditingController>(context, listen: false);
+    final index = Provider.of<int>(context, listen: false);
+    return editingController.keys[index];
+  }
+
 }
