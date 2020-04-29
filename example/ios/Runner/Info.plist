@@ -41,5 +41,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSCameraUsageDescription</key>
+	<string>É necesário acessar sua câmera para adicionar imagens</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>É necesário acessar sua galeria para adicionar imagens</string>
 </dict>
 </plist>

@@ -11,7 +11,10 @@ class MoldLister extends StatelessWidget {
         builder: (context, controller, child) {
       List<Widget> rows = createRows(controller);
       return ReorderableListView(
-          header: Text("Pressione e segure para mudar os itens de ordem"),
+          header: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 40),
+            child: Text("Pressione e segure para mudar os itens de ordem", textAlign: TextAlign.center,),
+          ),
           children: rows,
           onReorder: (oldIndex, newIndex) =>
               //Changing instantly caused bug where global keys were still duplicated
