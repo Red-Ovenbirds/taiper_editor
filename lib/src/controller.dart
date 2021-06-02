@@ -55,4 +55,10 @@ class TaiperEditingController with ChangeNotifier {
     this.keys.add(new GlobalKey());
     notifyListeners();
   }
+
+  addFileMold() {
+    this.data.add(ClayblockData(type: "file/local", value: "", props: null));
+    this.keys.add(new GlobalKey());
+    notifyListeners();
+  }
 }

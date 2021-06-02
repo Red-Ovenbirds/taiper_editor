@@ -4,12 +4,14 @@ import 'package:taiper/taiper.dart';
 import 'package:taiper_editor/src/molds/image/index.dart';
 import 'package:taiper_editor/src/widgets/confirmation_dialog.dart';
 import 'package:taiper_editor/taiper_editor.dart';
+import 'file/index.dart';
 import 'index.dart';
 
 class ClayblockMold extends StatelessWidget with ClayblockMoldMixin {
   final Map<String, Widget> molds = {
     "text": TextMold(),
-    "image": ImageMold()
+    "image": ImageMold(),
+    "file": FileMold(),
     //will be populated with each
     //correspondent Clayblock strings
   };
